@@ -1,24 +1,29 @@
 package swp391.group6.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 @Entity
-@Table(name = "Products")
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
-    private long categoryId;
+    @Column(name = "category_id")
+    private Long categoryId;
 
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private double price;
+    @Column(nullable = false, precision = 15, scale = 2)
+    private BigDecimal price;
 
     @Column(nullable = false)
     private int stock = 0;
@@ -26,21 +31,8 @@ public class Product {
     @Column(nullable = false)
     private boolean status = true;
 
-    @Column(unique = true, nullable = true)
+    @Column(nullable = false, unique = true)
     private String sku;
-
-    @OneToOne
-    @JoinColumn(name = "productId")
-    private List<ProductDetail> productDetailList;
-
-    @ManyToOne
-    private List<Category> categoryList;
-
-    @OneToMany(mappedBy = "productId")
-    private List<OrderDetail> orderDetailList;
-
-    @OneToMany(mappedBy = "productId")
-    private List<ShoppingCartEntry> shoppingCartEntryList;
 
     public long getId() {
         return id;
@@ -50,11 +42,11 @@ public class Product {
         this.id = id;
     }
 
-    public long getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(long categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -66,11 +58,11 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -96,37 +88,5 @@ public class Product {
 
     public void setSku(String sku) {
         this.sku = sku;
-    }
-
-    public List<Category> getCategoryList() {
-        return categoryList;
-    }
-
-    public void setCategoryList(List<Category> categoryList) {
-        this.categoryList = categoryList;
-    }
-
-    public List<ProductDetail> getProductDetailList() {
-        return productDetailList;
-    }
-
-    public void setProductDetailList(List<ProductDetail> productDetailList) {
-        this.productDetailList = productDetailList;
-    }
-
-    public List<OrderDetail> getOrderDetailList() {
-        return orderDetailList;
-    }
-
-    public void setOrderDetailList(List<OrderDetail> orderDetailList) {
-        this.orderDetailList = orderDetailList;
-    }
-
-    public List<ShoppingCartEntry> getShoppingCartEntryList() {
-        return shoppingCartEntryList;
-    }
-
-    public void setShoppingCartEntryList(List<ShoppingCartEntry> shoppingCartEntryList) {
-        this.shoppingCartEntryList = shoppingCartEntryList;
     }
 }

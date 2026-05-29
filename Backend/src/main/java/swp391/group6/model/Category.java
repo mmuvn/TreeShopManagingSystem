@@ -1,11 +1,14 @@
 package swp391.group6.model;
 
-import jakarta.persistence.*;
-
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Categories")
+@Table(name = "categories")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,8 +20,8 @@ public class Category {
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "categoryId")
-    private List<Product> productList;
+    @Column(name = "parent_id")
+    private Long parentId;
 
     public long getId() {
         return id;
@@ -44,11 +47,11 @@ public class Category {
         this.description = description;
     }
 
-    public List<Product> getProductList() {
-        return productList;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 }
